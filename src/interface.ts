@@ -15,25 +15,6 @@ enum ResolveError {
   ResolverTimeout = "ResolverTimeout"
 }
 
-interface Intent {
-  intent: IntentName;
-  context: Context;
-  /**
-   * Name of app to target for the Intent. Use if creating an explicit intent
-   * that bypasses resolver and goes directly to an app.
-   */
-  target?: AppIdentifier;
-  
-  /**
-   * Dispatches the intent with the Desktop Agent.
-   * 
-   * Accepts context data and target (if an explicit Intent) as optional args.
-   * Returns a Promise - resolving if the intent successfully results in launching an App.
-   * If the resolution errors, it returns an `Error` with a string from the `ResolveError` enumeration.
-   */
-  send(context: Context, target?: AppIdentifier): Promise<void>
-}
-
 /**
  * App metadata is Desktop Agent specific - but should support a name property.
  */
@@ -80,9 +61,18 @@ interface DesktopAgent {
   broadcast(context: Context): void;
 
   /**
-   * Constructs a new intent
+   * Sends an intent with the specified name and context, optionally to
+   * a specific target application (bypassing the resolver).
+   * 
+   * @param intent - The name of the intent to send
+   * @param context - The context object relating to the intent
+   * @param target - The target application, if this is a targeted intent
+   * 
+   * @returns {Promise<void>} A promise that resolves if the intent successfully
+   * results in launching an application, or an {@link Error} if rejected, where the message
+   * matches one of the values of {@link ResolveError}.
    */
-  intent(intent: IntentName, context: Context, target: String): Intent;
+  sendIntent(intent: IntentName, context: Context, target?: AppIdentifier): Promise<void>;
 
   /**
    * Listens to incoming Intents from the Agent.
