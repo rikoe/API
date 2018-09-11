@@ -59,11 +59,16 @@ interface Listener {
  */
 interface DesktopAgent {
   /**
-   * Launches/links to an app by name.
+   * Launches an application by its name, optionally providing context to use
+   * when opening. If the app is already open, it will be brought to the front.
    * 
-   * If opening errors, it returns an `Error` with a string from the `OpenError` enumeration.
+   * @param name - The identifier of the application to launch
+   * @param context - An optional {Context} object provided to the application when it is launched, via its {ContextListener}
+   * 
+   * @returns A promise that resolves successfully if the application was opened,
+   * and resolves with an {Error} where the message will match the {OpenError} enumeration.
    */
-  open(name: String, context: Context): Promise<void>;
+  open(name: AppIdentifier, context?: Context): Promise<void>;
 
   /**
    * Resolves a intent & context pair to a list of App names/metadata.
