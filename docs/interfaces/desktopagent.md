@@ -31,7 +31,7 @@ A Desktop Agent can be connected to one or more App Directories and will use dir
 
 ▸ **broadcast**(context: *[Context](../#context)*): `void`
 
-*Defined in [interface.ts:128](/src/interface.ts#L128)*
+*Defined in [interface.ts:125](/src/interface.ts#L125)*
 
 Publishes context to other apps on the desktop.
 
@@ -54,7 +54,7 @@ ___
 
 ▸ **contextListener**(handler: *`function`*): [Listener](listener.md)
 
-*Defined in [interface.ts:149](/src/interface.ts#L149)*
+*Defined in [interface.ts:146](/src/interface.ts#L146)*
 
 Listens to incoming context broadcast from the Desktop Agent.
 
@@ -71,9 +71,9 @@ ___
 
 ###  intentListener
 
-▸ **intentListener**(intent: *`String`*, handler: *`function`*): [Listener](listener.md)
+▸ **intentListener**(intent: *`string`*, handler: *`function`*): [Listener](listener.md)
 
-*Defined in [interface.ts:144](/src/interface.ts#L144)*
+*Defined in [interface.ts:141](/src/interface.ts#L141)*
 
 Listens to incoming Intents from the Agent.
 
@@ -81,7 +81,7 @@ Listens to incoming Intents from the Agent.
 
 | Param | Type |
 | ------ | ------ |
-| intent | `String` |
+| intent | `string` |
 | handler | `function` |
 
 **Returns:** [Listener](listener.md)
@@ -91,9 +91,9 @@ ___
 
 ###  open
 
-▸ **open**(name: *`String`*, context?: *[Context](../#context)*): `Promise`<`void`>
+▸ **open**(name: *`string`*, context?: *[Context](../#context)*): `Promise`<`void`>
 
-*Defined in [interface.ts:90](/src/interface.ts#L90)*
+*Defined in [interface.ts:87](/src/interface.ts#L87)*
 
 Launches/links to an app by name.
 
@@ -112,7 +112,7 @@ If opening errors, it returns an `Error` with a string from the `OpenError` enum
 
 | Param | Type |
 | ------ | ------ |
-| name | `String` |
+| name | `string` |
 | `Optional` context | [Context](../#context) |
 
 **Returns:** `Promise`<`void`>
@@ -122,9 +122,9 @@ ___
 
 ###  raiseIntent
 
-▸ **raiseIntent**(intent: *`String`*, context: *[Context](../#context)*, target?: *`String`*): `Promise`<[IntentResolution](intentresolution.md)>
+▸ **raiseIntent**(intent: *`string`*, context: *[Context](../#context)*, target?: *`string`*): `Promise`<[IntentResolution](intentresolution.md)>
 
-*Defined in [interface.ts:139](/src/interface.ts#L139)*
+*Defined in [interface.ts:136](/src/interface.ts#L136)*
 
 Raises an intent to the desktop agent to resolve.
 
@@ -139,9 +139,9 @@ agent.raiseIntent("StartChat", newContext, intentR.source);
 
 | Param | Type |
 | ------ | ------ |
-| intent | `String` |
+| intent | `string` |
 | context | [Context](../#context) |
-| `Optional` target | `String` |
+| `Optional` target | `string` |
 
 **Returns:** `Promise`<[IntentResolution](intentresolution.md)>
 
@@ -150,13 +150,13 @@ ___
 
 ###  resolve
 
-▸ **resolve**(intent: *`String`*, context?: *[Context](../#context)*): `Promise`<`Array`<[ActionMetadata](actionmetadata.md)>>
+▸ **resolve**(intent: * `string` &#124; `undefined`*, context?: *[Context](../#context)*): `Promise`<[ActionMetadata](actionmetadata.md)[]>
 
-*Defined in [interface.ts:120](/src/interface.ts#L120)*
+*Defined in [interface.ts:117](/src/interface.ts#L117)*
 
 Resolves an intent & context pair to a mapping of Intents and Apps (action metadata).
 
-Resolve is effectively granting programmatic access to the Desktop Agent's resolver. Returns a promise that resolves to an Array. The resolved dataset & metadata is Desktop Agent-specific. If intent argument is falsey, then all possible intents - and apps corresponding to the intents - are resolved for the provided context. If the resolution errors, it returns an `Error` with a string from the `ResolveError` enumeration.
+Resolve is effectively granting programmatic access to the Desktop Agent's resolver. Returns a promise that resolves to an Array. The resolved dataset & metadata is Desktop Agent-specific. If the intent argument is undefined, then all possible intents - and apps corresponding to the intents - are resolved for the provided context. If the resolution errors, it returns an `Error` with a string from the `ResolveError` enumeration.
 
 ```javascript
 // find what intents and apps are supported for a given context
@@ -182,10 +182,10 @@ await agent.raiseIntent(selectedAction.intent.name, context, selectedApp.name);
 
 | Param | Type |
 | ------ | ------ |
-| intent | `String` |
+| intent |  `string` &#124; `undefined`|
 | `Optional` context | [Context](../#context) |
 
-**Returns:** `Promise`<`Array`<[ActionMetadata](actionmetadata.md)>>
+**Returns:** `Promise`<[ActionMetadata](actionmetadata.md)[]>
 
 ___
 

@@ -32,27 +32,17 @@ When making changes to the TypeScript interfaces, run `yarn test` to ensure ther
 
 ### Type aliases
 
-* [ActionMap](#actionmap)
 * [Context](#context)
 
 ---
 
 ## Type aliases
 
-<a id="actionmap"></a>
-
-###  ActionMap
-
-**Ƭ ActionMap**: *[ActionMetadata](interfaces/actionmetadata.md)[]*
-
-*Defined in [interface.ts:16](/src/interface.ts#L16)*
-
-___
 <a id="context"></a>
 
 ###  Context
 
-**Ƭ Context**: *`Object`*
+**Ƭ Context**: *`any`*
 
 *Defined in [interface.ts:1](/src/interface.ts#L1)*
 

@@ -23,18 +23,18 @@ Intent descriptor
 
 ###  displayName
 
-**● displayName**: *`String`*
+**● displayName**: *`string`*
 
-*Defined in [interface.ts:23](/src/interface.ts#L23)*
+*Defined in [interface.ts:21](/src/interface.ts#L21)*
 
 ___
 <a id="name"></a>
 
 ###  name
 
-**● name**: *`String`*
+**● name**: *`string`*
 
-*Defined in [interface.ts:22](/src/interface.ts#L22)*
+*Defined in [interface.ts:20](/src/interface.ts#L20)*
 
 ___
 

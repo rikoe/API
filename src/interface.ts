@@ -1,4 +1,4 @@
-type Context = Object;
+type Context = object;
 
 enum OpenError {
   AppNotFound = "AppNotFound",
@@ -13,30 +13,27 @@ enum ResolveError {
   ResolverTimeout = "ResolverTimeout"
 }
 
-type ActionMap = ActionMetadata[]
-
  /**
  * Intent descriptor
  */ 
 interface IntentMetadata {
-  name:String;
-  displayName:String;
+  name: string;
+  displayName: string;
 }
 
  /**
  * Provides a mapping of Apps to Intents
  */ 
 interface ActionMetadata {
-  intent:IntentMetadata;
-  apps:AppMetadata[];
+  intent: IntentMetadata;
+  apps: AppMetadata[];
 }
-
 
 /**
  * App metadata is Desktop Agent specific - but should support a name property.
  */
 interface AppMetadata {
-  name: String;
+  name: string;
 }
 
 /**
@@ -50,9 +47,9 @@ interface AppMetadata {
  * ```
  */
 interface IntentResolution {
-  source: String;
-  data?: Object; 
-  version: String;
+  source: string;
+  data?: object; 
+  version: string;
 }
 
 interface Listener {
@@ -87,14 +84,14 @@ interface DesktopAgent {
    *     agent.open('myApp', context);
    * ```
    */
-  open(name: String, context?: Context): Promise<void>;
+  open(name: string, context?: Context): Promise<void>;
 
   /**
    * Resolves an intent & context pair to a mapping of Intents and Apps (action metadata).
    *
    * Resolve is effectively granting programmatic access to the Desktop Agent's resolver. 
    * Returns a promise that resolves to an Array. The resolved dataset & metadata is Desktop Agent-specific.
-   * If intent argument is falsey, then all possible intents - and apps corresponding to the intents - are resolved for the provided context.
+   * If the intent argument is undefined, then all possible intents - and apps corresponding to the intents - are resolved for the provided context.
    * If the resolution errors, it returns an `Error` with a string from the `ResolveError` enumeration.
    * 
    * ```javascript
@@ -117,7 +114,7 @@ interface DesktopAgent {
    * await agent.raiseIntent(selectedAction.intent.name, context, selectedApp.name);
    * ```
    */
-  resolve(intent: String, context?: Context): Promise<Array<ActionMetadata>>;
+  resolve(intent: string | undefined, context?: Context): Promise<ActionMetadata[]>;
 
   /**
    * Publishes context to other apps on the desktop.
@@ -136,12 +133,12 @@ interface DesktopAgent {
    * agent.raiseIntent("StartChat", newContext, intentR.source);
    * ```
    */
-  raiseIntent(intent: String, context: Context, target?: String): Promise<IntentResolution>;
+  raiseIntent(intent: string, context: Context, target?: string): Promise<IntentResolution>;
 
   /**
    * Listens to incoming Intents from the Agent.
    */
-  intentListener(intent: String, handler: (context: Context) => void): Listener;
+  intentListener(intent: string, handler: (context: Context) => void): Listener;
 
   /**
    * Listens to incoming context broadcast from the Desktop Agent.
