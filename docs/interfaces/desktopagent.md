@@ -31,7 +31,7 @@ A Desktop Agent can be connected to one or more App Directories and will use dir
 
 ▸ **broadcast**(context: *[Context](../#context)*): `void`
 
-*Defined in [interface.ts:128](/src/interface.ts#L128)*
+*Defined in [interface.ts:131](/src/interface.ts#L131)*
 
 Publishes context to other apps on the desktop.
 
@@ -54,7 +54,7 @@ ___
 
 ▸ **contextListener**(handler: *`function`*): [Listener](listener.md)
 
-*Defined in [interface.ts:149](/src/interface.ts#L149)*
+*Defined in [interface.ts:152](/src/interface.ts#L152)*
 
 Listens to incoming context broadcast from the Desktop Agent.
 
@@ -73,7 +73,7 @@ ___
 
 ▸ **intentListener**(intent: *`String`*, handler: *`function`*): [Listener](listener.md)
 
-*Defined in [interface.ts:144](/src/interface.ts#L144)*
+*Defined in [interface.ts:147](/src/interface.ts#L147)*
 
 Listens to incoming Intents from the Agent.
 
@@ -102,10 +102,10 @@ If a Context object is passed in, this object will be provided to the opened app
 If opening errors, it returns an `Error` with a string from the `OpenError` enumeration.
 
 ```javascript
-//no context
-    agent.open('myApp');
-    //with context
-    agent.open('myApp', context);
+// no context
+agent.open('myApp');
+// with context
+agent.open('myApp', context);
 ```
 
 **Parameters:**
@@ -124,15 +124,15 @@ ___
 
 ▸ **raiseIntent**(intent: *`String`*, context: *[Context](../#context)*, target?: *`String`*): `Promise`<[IntentResolution](intentresolution.md)>
 
-*Defined in [interface.ts:139](/src/interface.ts#L139)*
+*Defined in [interface.ts:142](/src/interface.ts#L142)*
 
 Raises an intent to the desktop agent to resolve.
 
 ```javascript
-//raise an intent to start a chat with a given contact
-const intentR = await agent.resolve("StartChat", context);
-//use the IntentResolution object to target the same chat app with a new context
-agent.raiseIntent("StartChat", newContext, intentR.source);
+// raise an intent to start a chat with a given contact
+const intentResolution = await agent.raiseIntent("StartChat", context);
+// use the IntentResolution object to target the same chat app with a new context
+await agent.raiseIntent("StartChat", newContext, intentResolution.source);
 ```
 
 **Parameters:**
@@ -152,13 +152,16 @@ ___
 
 ▸ **resolve**(intent: *`String`*, context?: *[Context](../#context)*): `Promise`<`Array`<[ActionMetadata](actionmetadata.md)>>
 
-*Defined in [interface.ts:120](/src/interface.ts#L120)*
+*Defined in [interface.ts:123](/src/interface.ts#L123)*
 
 Resolves an intent & context pair to a mapping of Intents and Apps (action metadata).
 
-Resolve is effectively granting programmatic access to the Desktop Agent's resolver. Returns a promise that resolves to an Array. The resolved dataset & metadata is Desktop Agent-specific. If intent argument is falsey, then all possible intents - and apps corresponding to the intents - are resolved for the provided context. If the resolution errors, it returns an `Error` with a string from the `ResolveError` enumeration.
+Resolve is effectively granting programmatic access to the Desktop Agent's resolver. Returns a promise that resolves to an Array. The resolved dataset & metadata is Desktop Agent-specific. If intent argument is falsy, then all possible intents - and apps corresponding to the intents - are resolved for the provided context. If the resolution errors, it returns an `Error` with a string from the `ResolveError` enumeration.
 
 ```javascript
+// find out more information about a particular intent
+const startCallMetadata = await agent.resolve("StartCall");
+
 // find what intents and apps are supported for a given context
 const actionMetadata = await agent.resolve(null, context);
 // e.g.:
